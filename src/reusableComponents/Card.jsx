@@ -9,9 +9,8 @@ import {
   Box,
 } from "@mui/material";
 import React from "react";
-import Input from "./Input";
 
-export default function CardForms({ titleCard }) {
+export default function CardForms({ titleCard, children}) {
   return (
     <Container>
       <Grid
@@ -26,14 +25,7 @@ export default function CardForms({ titleCard }) {
           <Card elevation={5}>
             <CardHeader title={titleCard} />
             <CardContent>
-              <Grid container spacing={3}>
-                  <Grid item xs={12} md={12} lg={12}>
-                <Input labelInput="Usuario" />
-                </Grid>
-                <Grid item xs={12} md={12} lg={12}>
-                <Input labelInput="Contraseña" />
-                </Grid>
-              </Grid>
+            {children}
             </CardContent>
           </Card>
         </Grid>
