@@ -7,7 +7,9 @@ export default function Register() {
   const { isLogged } = useAuth();
   return (
     <>
-      <CardForms titleCard={"Registrarse"} children={<FormRegister />} />
+      <CardForms titleCard={"Registrarse"}>
+        <FormRegister />
+      </CardForms>
     </>
   );
 }

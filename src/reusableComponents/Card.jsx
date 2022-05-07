@@ -1,16 +1,7 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Container,
-  Typography,
-  TextField,
-  Grid,
-  Box,
-} from "@mui/material";
+import { Card, CardContent, CardHeader, Container, Grid } from "@mui/material";
 import React from "react";
 
-export default function CardForms({ titleCard, children}) {
+export default function CardForms({ titleCard, children }) {
   return (
     <Container>
       <Grid
@@ -24,9 +15,7 @@ export default function CardForms({ titleCard, children}) {
         <Grid item xs={3}>
           <Card elevation={5}>
             <CardHeader title={titleCard} />
-            <CardContent>
-            {children}
-            </CardContent>
+            <CardContent>{children}</CardContent>
           </Card>
         </Grid>
       </Grid>
