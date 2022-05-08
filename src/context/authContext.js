@@ -14,7 +14,8 @@ export default function AuthProvider({ children }) {
   return (
     <context.Provider
       value={{
-        userRegister
+        userRegister,
+        setIsLogged
       }}
     >
       {children}

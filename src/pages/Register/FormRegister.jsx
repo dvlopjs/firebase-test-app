@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { TextField, Grid, Box, Button } from "@mui/material";
+import { TextField, Grid, Box, Button, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useAuth } from "../../context/authContext";
 import { auth } from "../../firebase";
+import useUserValues from "../../hooks/useUserValues";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   inputWidth: {
@@ -12,31 +14,31 @@ const useStyles = makeStyles(() => ({
 export default function FormRegister() {
   const classes = useStyles();
   const { userRegister } = useAuth();
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
-  const handleChange = ({ target: { name, value } }) => {
-    setUser({ ...user, [name]: value });
-  };
+  const [errorMessage, setErrorMessage] = useState("");
+  const { userValues, resetValues, handleChange } = useUserValues();
+
   const handleSubmit = async (e) => {
-    const { email, password } = user;
     e.preventDefault();
     try {
-      await userRegister(auth, email, password);
-      console.log('?')
+      await userRegister(auth, userValues.email, userValues.password);
       alert("Usuario creado exitosamente");
+      resetValues();
     } catch (error) {
-      console.error(error);
+      setErrorMessage(error.message);
+      resetValues();
     }
   };
+
+  React.useEffect(() => {
+    errorMessage && alert(errorMessage);
+  }, [errorMessage]);
   return (
     <>
       <form onSubmit={(e) => handleSubmit(e)}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={12} lg={12}>
             <TextField
-              value={user.email}
+              value={userValues.email}
               name="email"
               onChange={(event) => handleChange(event)}
               label="Usuario"
@@ -45,7 +47,7 @@ export default function FormRegister() {
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
             <TextField
-              value={user.password}
+              value={userValues.password}
               name="password"
               onChange={(event) => handleChange(event)}
               label="Contraseña"
@@ -57,6 +59,11 @@ export default function FormRegister() {
           <Button type="submit" variant="contained" color="primary">
             Registrar
           </Button>
+        </Box>
+        <Box pt={2} textAlign="center">
+          <Link>
+        ¿Ya tenés una cuenta?
+        </Link>
         </Box>
       </form>
     </>
